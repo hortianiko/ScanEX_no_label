@@ -33,7 +33,7 @@
         <script src="js/labelgun.min.js"></script>
         <script src="js/labels.js"></script>
         <script src="js/leaflet-control-geocoder.Geocoder.js"></script>
-        <script src="data/projects_final_2.js"></script>
+        <script src="data/Projektek_2.js"></script>
         <script>
         var highlightLayer;
         function highlightFeature(e) {
@@ -52,7 +52,7 @@
         }
         var map = L.map('map', {
             zoomControl:true, maxZoom:28, minZoom:1
-        }).fitBounds([[43.8815181964764,5.472372148218258],[52.45842981991881,23.485586668218243]]);
+        }).fitBounds([[44.429503768771404,4.682121093429111],[52.27375622083564,21.20677110657086]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -107,7 +107,7 @@
         });
         layer_GreyBackground_1;
         map.addLayer(layer_GreyBackground_1);
-        function pop_projects_final_2(feature, layer) {
+        function pop_Projektek_2(feature, layer) {
             layer.on({
                 mouseout: function(e) {
                     for (var i in e.target._eventParents) {
@@ -162,6 +162,12 @@
                         <th scope="row">Kép</th>\
                         <td class="visible-with-data" id="Kép">' + (feature.properties['Kép'] !== null ? autolinker.link(feature.properties['Kép'].toLocaleString()) : '') + '</td>\
                     </tr>\
+                    <tr>\
+                        <td class="visible-with-data" id="lat"colspan="2"><strong>lat</strong><br />' + (feature.properties['lat'] !== null ? autolinker.link(feature.properties['lat'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td class="visible-with-data" id="long"colspan="2"><strong>long</strong><br />' + (feature.properties['long'] !== null ? autolinker.link(feature.properties['long'].toLocaleString()) : '') + '</td>\
+                    </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
             var popup = layer.getPopup();
@@ -170,9 +176,9 @@
             popup.setContent(updatedContent);
         }
 
-        function style_projects_final_2_0() {
+        function style_Projektek_2_0() {
             return {
-                pane: 'pane_projects_final_2',
+                pane: 'pane_Projektek_2',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -186,26 +192,26 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_projects_final_2');
-        map.getPane('pane_projects_final_2').style.zIndex = 402;
-        map.getPane('pane_projects_final_2').style['mix-blend-mode'] = 'normal';
-        var layer_projects_final_2 = new L.geoJson(json_projects_final_2, {
+        map.createPane('pane_Projektek_2');
+        map.getPane('pane_Projektek_2').style.zIndex = 402;
+        map.getPane('pane_Projektek_2').style['mix-blend-mode'] = 'normal';
+        var layer_Projektek_2 = new L.geoJson(json_Projektek_2, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_projects_final_2',
-            layerName: 'layer_projects_final_2',
-            pane: 'pane_projects_final_2',
-            onEachFeature: pop_projects_final_2,
+            dataVar: 'json_Projektek_2',
+            layerName: 'layer_Projektek_2',
+            pane: 'pane_Projektek_2',
+            onEachFeature: pop_Projektek_2,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_projects_final_2_0(feature));
+                return L.circleMarker(latlng, style_Projektek_2_0(feature));
             },
         });
-        bounds_group.addLayer(layer_projects_final_2);
-        map.addLayer(layer_projects_final_2);
+        bounds_group.addLayer(layer_Projektek_2);
+        map.addLayer(layer_Projektek_2);
         var osmGeocoder = new L.Control.Geocoder({
             collapsed: true,
             position: 'topleft',
@@ -218,7 +224,7 @@
         .title += 'Search for a place';
         var baseMaps = {};
         var overlaysTree = [
-            {label: '<img src="legend/projects_final_2.png" /> projects_final', layer: layer_projects_final_2},
+            {label: '<img src="legend/Projektek_2.png" /> Projektek', layer: layer_Projektek_2},
             {label: "Grey Background", layer: layer_GreyBackground_1},
             {label: "OpenStreetMap", layer: layer_OpenStreetMap_0},]
         var lay = L.control.layers.tree(null, overlaysTree,{
@@ -231,16 +237,41 @@
             collapsed: true,
         });
         lay.addTo(map);
-        setBounds();
-        resetLabels([layer_projects_final_2]);
         map.on("zoomend", function(){
-            resetLabels([layer_projects_final_2]);
+
+                if (map.hasLayer(layer_Projektek_2)) {
+                    if (map.getZoom() <= 6 && map.getZoom() >= 15) {
+                        layer_Projektek_2.eachLayer(function (layer) {
+                            layer.openTooltip();
+                        });
+                    } else {
+                        layer_Projektek_2.eachLayer(function (layer) {
+                            layer.closeTooltip();
+                        });
+                    }
+                }
+        });
+        setBounds();
+                if (map.hasLayer(layer_Projektek_2)) {
+                    if (map.getZoom() <= 6 && map.getZoom() >= 15) {
+                        layer_Projektek_2.eachLayer(function (layer) {
+                            layer.openTooltip();
+                        });
+                    } else {
+                        layer_Projektek_2.eachLayer(function (layer) {
+                            layer.closeTooltip();
+                        });
+                    }
+                }
+        resetLabels([layer_Projektek_2]);
+        map.on("zoomend", function(){
+            resetLabels([layer_Projektek_2]);
         });
         map.on("layeradd", function(){
-            resetLabels([layer_projects_final_2]);
+            resetLabels([layer_Projektek_2]);
         });
         map.on("layerremove", function(){
-            resetLabels([layer_projects_final_2]);
+            resetLabels([layer_Projektek_2]);
         });
         </script>
     </body>
